@@ -6,6 +6,7 @@
 #include "reactoreventloop.h"
 #include "diagnosticserver.h"
 
+// for test
 int main() {
     printf("Hello world!\n");
 

@@ -1,1 +1,7 @@
 build
+bin
+obj
+*.cbp
+*.layout
+*.pro
+*.user
