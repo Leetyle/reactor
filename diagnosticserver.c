@@ -2,6 +2,7 @@
 #include "reactor.h"
 #include "diagnosticserver.h"
 #include <malloc.h>
+#include "tcpserver.h"
 
 struct DiagnosticsServer {
     EventHandler eventHandler;

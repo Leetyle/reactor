@@ -13,7 +13,7 @@
 /* Bind an event handler to the struct used to interface poll(). */
 typedef struct {
     bool isUsed;
-    EventHandler * handler;
+    EventHandler handler;
     struct pollfd fd;
 } HandlerRegistration;
 
@@ -72,7 +72,7 @@ static EventHandler * findHandler(int fd) {
     EventHandler * matched = NULL;
 
     for(int i = 0; i < MAX_NO_OF_HANDLERS && matched == NULL; ++i) {
-        matched = &registerHandlers[i].handler;
+        matched = registerHandlers[i].handler;
     }
 
     return matched;
