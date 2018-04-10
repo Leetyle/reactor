@@ -36,7 +36,16 @@ static bool addToRegistry(EventHandler * handler) {
     return isRegistered;
 }
 
-static void removeFromRegistry(EventHandler * handler){}
+static bool removeFromRegistry(EventHandler * handler) {
+    bool removed = false;
+
+    for(int i = 0; i < MAX_NO_OF_HANDLERS && removed == 0; ++i) {
+        registerHandlers[i].isUsed = false;
+        removed = true;
+    }
+
+    return removed;
+}
 
 void registerEvtHandler(EventHandler * handler) {
     assert(handler != 0);
@@ -59,7 +68,15 @@ static size_t buildPollArray(struct pollfd * fds) {
     return ret;
 }
 
-static EventHandler * findHandler(int fd) {}
+static EventHandler * findHandler(int fd) {
+    EventHandler * matched = NULL;
+
+    for(int i = 0; i < MAX_NO_OF_HANDLERS && matched == NULL; ++i) {
+        matched = &registerHandlers[i].handler;
+    }
+
+    return matched;
+}
 
 static void dispatchSignalledHandles(const struct pollfd* fds, 
                                      size_t noOfHandles) {

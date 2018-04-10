@@ -18,10 +18,6 @@ static void handleConnectReq(void * instance) {
     // add code for accepting the new connection and creating a client here...
 }
 
-static Handle createServerSocket(int tcpPort) {
-    return 0;
-}
-
 DiagnosticsServerPtr createServer(unsigned int tcpPort) {
     DiagnosticsServerPtr newServer = malloc(sizeof *newServer);
 
