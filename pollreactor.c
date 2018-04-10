@@ -24,7 +24,7 @@ static bool addToRegistry(EventHandler * handler) {
     for(int i = 0; i < MAX_NO_OF_HANDLERS; i++) {
         if(!registerHandlers[i].isUsed) {
             HandlerRegistration * freeEntry = registerHandlers + i;
-            freeEntry->handler = handler;
+            freeEntry->handler = *handler;
             freeEntry->fd.fd = handler->getHandle(handler->instance);
             freeEntry->fd.events = POLLIN;
 
@@ -72,7 +72,7 @@ static EventHandler * findHandler(int fd) {
     EventHandler * matched = NULL;
 
     for(int i = 0; i < MAX_NO_OF_HANDLERS && matched == NULL; ++i) {
-        matched = registerHandlers[i].handler;
+        matched = &registerHandlers[i].handler;
     }
 
     return matched;
