@@ -21,7 +21,7 @@ static HandlerRegistration registerHandlers[MAX_NO_OF_HANDLERS];
 
 static bool addToRegistry(EventHandler * handler) {
     bool isRegistered = false;
-    for(int i = 0; i < MAX_NO_OF_HANDLERS; i++) {
+    for(int i = 0; i < MAX_NO_OF_HANDLERS && isRegistered == false; i++) {
         if(!registerHandlers[i].isUsed) {
             HandlerRegistration * freeEntry = registerHandlers + i;
             freeEntry->handler = *handler;
@@ -40,8 +40,10 @@ static bool removeFromRegistry(EventHandler * handler) {
     bool removed = false;
 
     for(int i = 0; i < MAX_NO_OF_HANDLERS && removed == 0; ++i) {
-        registerHandlers[i].isUsed = false;
-        removed = true;
+        if(&registerHandlers[i].handler == handler) {
+            registerHandlers[i].isUsed = false;
+            removed = true;
+        }
     }
 
     return removed;
@@ -72,6 +74,7 @@ static EventHandler * findHandler(int fd) {
     EventHandler * matched = NULL;
 
     for(int i = 0; i < MAX_NO_OF_HANDLERS && matched == NULL; ++i) {
+        if(registerHandlers[i].fd.fd == fd)
         matched = &registerHandlers[i].handler;
     }
 
